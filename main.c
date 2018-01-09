@@ -157,7 +157,6 @@ int main(int argc, char *argv[]){
 	for (int i = 0; i < N; i++){
 		fprintf(outputFile, "\n%s\t%d", Arr[i].word, Arr[i].n);
 	}
-	fflush(outputFile);
 
 	fclose(inputFile);
 	fclose(outputFile);
