@@ -1,43 +1,43 @@
 #include <stdio.h>
 #include <malloc.h>
 
-struct Words {
+struct word_keeper {
 	char *word;
 	int n;
 };
 
-void quickSort(struct Words *numbers, int left, int right){
-	int pivot; // разрешающий элемент
+void quickSort(struct word_keeper *numbers, int left, int right){
+	int buffer; // СЂР°Р·СЂРµС€Р°СЋС‰РёР№ СЌР»РµРјРµРЅС‚
 	int l_hold = left;
 	int r_hold = right;
-	pivot = numbers[left].n;
-	char *pivot_w = numbers[left].word;
+	buffer = numbers[left].n;
+	char *buffer_w = numbers[left].word;
 
-	while (left < right){ // пока границы не сомкнутся
-		while ((numbers[right].n >= pivot) && (left < right))
-			right--; // сдвигаем правую границу пока элемент [right] больше [pivot]
+	while (left < right){ // РїРѕРєР° РіСЂР°РЅРёС†С‹ РЅРµ СЃРѕРјРєРЅСѓС‚СЃСЏ
+		while ((numbers[right].n >= buffer) && (left < right))
+			right--; // СЃРґРІРёРіР°РµРј РїСЂР°РІСѓСЋ РіСЂР°РЅРёС†Сѓ РїРѕРєР° СЌР»РµРјРµРЅС‚ right Р±РѕР»СЊС€Рµ buffer
 		if (left != right){
-			numbers[left].n = numbers[right].n; // перемещаем элемент [right] на место разрешающего
+			numbers[left].n = numbers[right].n; // РїРµСЂРµРјРµС‰Р°РµРј СЌР»РµРјРµРЅС‚ right РЅР° РјРµСЃС‚Рѕ СЂР°Р·СЂРµС€Р°СЋС‰РµРіРѕ
 			numbers[left].word = numbers[right].word;
-			left++; // сдвигаем левую границу вправо
+			left++; // СЃРґРІРёРіР°РµРј Р»РµРІСѓСЋ РіСЂР°РЅРёС†Сѓ РІРїСЂР°РІРѕ
 		}
-		while ((numbers[left].n <= pivot) && (left < right))
-			left++; // сдвигаем левую границу пока элемент [left] меньше [pivot]
-		if (left != right){ // если границы не сомкнулись
-			numbers[right].n = numbers[left].n; // перемещаем элемент [left] на место [right]
+		while ((numbers[left].n <= buffer) && (left < right))
+			left++; // СЃРґРІРёРіР°РµРј Р»РµРІСѓСЋ РіСЂР°РЅРёС†Сѓ РїРѕРєР° СЌР»РµРјРµРЅС‚ left РјРµРЅСЊС€Рµ buffer
+		if (left != right){ // РµСЃР»Рё РіСЂР°РЅРёС†С‹ РЅРµ СЃРѕРјРєРЅСѓР»РёСЃСЊ
+			numbers[right].n = numbers[left].n; // РїРµСЂРµРјРµС‰Р°РµРј СЌР»РµРјРµРЅС‚ left РЅР° РјРµСЃС‚Рѕ right
 			numbers[right].word = numbers[left].word;
-			right--; // сдвигаем правую границу вправо
+			right--; // СЃРґРІРёРіР°РµРј РїСЂР°РІСѓСЋ РіСЂР°РЅРёС†Сѓ РІРїСЂР°РІРѕ
 		}
 	}
-	numbers[left].n = pivot; // ставим разрешающий элемент на место
-	numbers[left].word = pivot_w;
-	pivot = left;
+	numbers[left].n = buffer; // СЃС‚Р°РІРёРј СЂР°Р·СЂРµС€Р°СЋС‰РёР№ СЌР»РµРјРµРЅС‚ РЅР° РјРµСЃС‚Рѕ
+	numbers[left].word = buffer_w;
+	buffer = left;
 	left = l_hold;
 	right = r_hold;
-	if (left < pivot) // Рекурсивно вызываем сортировку для левой и правой части массива
-		quickSort(numbers, left, pivot - 1);
-	if (right > pivot)
-		quickSort(numbers, pivot + 1, right);
+	if (left < buffer) // Р РµРєСѓСЂСЃРёРІРЅРѕ РІС‹Р·С‹РІР°РµРј СЃРѕСЂС‚РёСЂРѕРІРєСѓ РґР»СЏ Р»РµРІРѕР№ Рё РїСЂР°РІРѕР№ С‡Р°СЃС‚Рё РјР°СЃСЃРёРІР°
+		quickSort(numbers, left, buffer - 1);
+	if (right > buffer)
+		quickSort(numbers, buffer + 1, right);
 }
 
 int isValidSymbol(char text){
@@ -49,7 +49,7 @@ int isValidSymbol(char text){
 
 int main(int argc, char *argv[]){
 	int max = 1000;
-	struct Words *Arr = (struct Words*)malloc(max * sizeof(struct Words));
+	struct word_keeper *Arr = (struct word_keeper*)malloc(max * sizeof(struct word_keeper));
 
 	char text;
 
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]){
 		return 1;
 	}
 
-	FILE *outputFile = fopen("answer.txt", "w");
+	FILE *outputFile = fopen("output.txt", "w");
 
 	for (int i1 = 0, j1 = 0; ;){
 		text = getc(inputFile);//printf("%c", text);
@@ -93,9 +93,7 @@ int main(int argc, char *argv[]){
 				return 0;
 			}//else{printf("!%c", text);}
 
-////////////ВООООТ//////
             if(start){
-////////////ВООООТ//////
 
 			Arr[i1].word[j1] = 0;
 			if (N == 0) {
@@ -137,7 +135,7 @@ int main(int argc, char *argv[]){
 				start = 0;
 				N++;
 				if (N == max){
-					struct Words *p = (struct Words*)malloc(max * 2 * sizeof(struct Words));
+					struct word_keeper *p = (struct word_keeper*)malloc(max * 2 * sizeof(struct word_keeper));
 					max = 2 * max;
 					for (int i = 0; i < N; i++)
 						p[i] = Arr[i];
@@ -147,9 +145,7 @@ int main(int argc, char *argv[]){
 				}
 			}
 
-////////////ВООООТ//////
             }
-////////////ВООООТ//////
 
 		}
 	}
