@@ -36,7 +36,7 @@ void quickSort(struct word_keeper *numbers, int left, int right) {
 		quickSort(numbers, buffer + 1, right);
 }
 
-int isInvalidSymbol(char text) {
+int isInvalidSymbol(unsigned char text) {
 	return text == ' ' || text == '.' || text == 10 || text == 0 || text == '?' || text == '!'
 		|| text == ':' || text == ';' || text == ',' || text == -30 || text == -62 || text == -80
 		|| text == '\"'
