@@ -1,7 +1,6 @@
-#include "stdafx.h"
+#include "word_keeper.h"
 #include <stdio.h>
 #include <malloc.h>
-#include "word_keeper.h"
 
 void quickSort(struct word_keeper *numbers, int left, int right) { 
 	int buffer;
@@ -37,7 +36,7 @@ void quickSort(struct word_keeper *numbers, int left, int right) {
 		quickSort(numbers, buffer + 1, right);
 }
 
-int isValidSymbol(char text) {
+int isInvalidSymbol(char text) {
 	return text == ' ' || text == '.' || text == 10 || text == 0 || text == '?' || text == '!'
 		|| text == ':' || text == ';' || text == ',' || text == -30 || text == -62 || text == -80
 		|| text == '\"'
@@ -85,7 +84,7 @@ int main(int argc, char *argv[]) {
 				countSentences++;
 			}
 
-			if (!isValidSymbol(text)) {
+			if (!isInvalidSymbol(text)) {
 				printf("ERROR)%d\n", text);
 				return 0;
 			}//else{printf("!%c", text);}
